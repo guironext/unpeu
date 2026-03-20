@@ -1,0 +1,3 @@
+Commercial: https://yourdomain.com/join/commercial
+Dealers: https://yourdomain.com/join/dealers
+Admin: https://yourdomain.com/join/admin
