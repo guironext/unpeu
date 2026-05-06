@@ -10,6 +10,9 @@ export default defineConfig({
   },
   datasource: {
     url: process.env["DATABASE_URL"] ?? "postgresql://localhost:5432/postgres",
-    shadowDatabaseUrl: process.env["DIRECT_URL"] ?? "postgresql://localhost:6543/postgres",
+    // Shadow DB: must be a DIFFERENT database, and use port 5432 (Session pooler).
+    // Port 6543 (Transaction pooler) hangs - it doesn't support advisory locks.
+    // Create a 2nd Supabase project (free) and set SHADOW_DATABASE_URL to its URL (port 5432).
+    shadowDatabaseUrl: process.env["SHADOW_DATABASE_URL"] || undefined,
   },
 });

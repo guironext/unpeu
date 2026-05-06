@@ -3,8 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { frFR } from "@clerk/localizations";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import Footer from "@/components/Footer";
+import { ConditionalLayout } from "@/components/ConditionalLayout";
+import { UserSync } from "@/components/UserSync";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +33,8 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
           suppressHydrationWarning
         >
-          <Header />
-          <main className="flex min-h-screen flex-col">{children}</main>
-
-          <Footer />
+          <UserSync />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </body>
       </html>
     </ClerkProvider>

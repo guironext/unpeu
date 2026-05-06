@@ -39,11 +39,16 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === "user.created") {
-    const { id, email_addresses, first_name, last_name } = evt.data;
+    const { id, email_addresses, first_name, last_name, phone_numbers } = evt.data;
     const email = email_addresses?.[0]?.email_address ?? "";
 
-    // Check for invitation metadata (set during sign-up via invite link)
     const unsafeMetadata = evt.data.unsafe_metadata as Record<string, unknown> | undefined;
+    const contact =
+      (unsafeMetadata?.contact as string) ??
+      (phone_numbers?.[0] as { phone_number?: string })?.phone_number ??
+      (phone_numbers?.[0] as { phoneNumber?: string })?.phoneNumber ??
+      null;
+
     const invitedByUserId = unsafeMetadata?.invitedByUserId as string | undefined;
 
     const newUser = await prisma.user.upsert({
@@ -53,6 +58,7 @@ export async function POST(req: Request) {
         email,
         firstName: first_name ?? null,
         lastName: last_name ?? null,
+        contact,
         role: "VISITOR",
         invitedById: invitedByUserId ?? null,
       },
@@ -60,6 +66,8 @@ export async function POST(req: Request) {
         email,
         firstName: first_name ?? null,
         lastName: last_name ?? null,
+        contact,
+        ...(invitedByUserId && { invitedById: invitedByUserId }),
       },
     });
 
@@ -74,17 +82,45 @@ export async function POST(req: Request) {
   }
 
   if (eventType === "user.updated") {
-    const { id, email_addresses, first_name, last_name } = evt.data;
+    const { id, email_addresses, first_name, last_name, phone_numbers } = evt.data;
     const email = email_addresses?.[0]?.email_address ?? "";
 
-    await prisma.user.update({
+    const unsafeMetadata = evt.data.unsafe_metadata as Record<string, unknown> | undefined;
+    const contact =
+      (unsafeMetadata?.contact as string) ??
+      (phone_numbers?.[0] as { phone_number?: string })?.phone_number ??
+      (phone_numbers?.[0] as { phoneNumber?: string })?.phoneNumber ??
+      null;
+    const invitedByUserId = unsafeMetadata?.invitedByUserId as string | undefined;
+
+    await prisma.user.upsert({
       where: { clerkId: id },
-      data: {
+      create: {
+        clerkId: id,
         email,
         firstName: first_name ?? null,
         lastName: last_name ?? null,
+        contact,
+        role: "VISITOR",
+        invitedById: invitedByUserId ?? null,
+      },
+      update: {
+        email,
+        firstName: first_name ?? null,
+        lastName: last_name ?? null,
+        contact,
+        ...(invitedByUserId && { invitedById: invitedByUserId }),
       },
     });
+
+    // Mark invitation link as used if present (handles user.updated before user.created)
+    const invitationToken = unsafeMetadata?.invitationToken as string | undefined;
+    if (invitationToken && invitedByUserId) {
+      await prisma.invitationLink.updateMany({
+        where: { token: invitationToken },
+        data: { usedAt: new Date() },
+      });
+    }
   }
 
   if (eventType === "user.deleted") {

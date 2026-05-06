@@ -208,13 +208,13 @@ export default function Footer() {
 
         {/* Social & Logo row */}
         <div className="mt-10 flex flex-col items-center gap-6 border-t border-gray-100 pt-8 sm:flex-row sm:justify-between">
-          <Link href="/" className="shrink-0">
+          <Link href="/" className="relative block h-12 w-28 shrink-0">
             <Image
               src="/logo2.png"
               alt="Unpeu"
-              width={140}
-              height={48}
-              className="h-12 w-auto object-contain"
+              fill
+              className="object-contain"
+              sizes="112px"
             />
           </Link>
           <div className="flex items-center gap-4">

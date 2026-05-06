@@ -7,7 +7,7 @@ const CATEGORIES = [
   {
     href: "/categories/phones",
     label: "Téléphones & Tablettes",
-    image: "https://images.unsplash.com/photo-1511707171634-488808c59dbe?w=200&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=200&h=200&fit=crop",
   },
   {
     href: "/categories/electronics",
@@ -17,7 +17,7 @@ const CATEGORIES = [
   {
     href: "/categories/computing",
     label: "Informatique",
-    image: "https://images.unsplash.com/photo-1496181132586-9e7e7247fd5d?w=200&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=200&h=200&fit=crop",
   },
   {
     href: "/categories/fashion",
@@ -27,7 +27,7 @@ const CATEGORIES = [
   {
     href: "/categories/beauty",
     label: "Beauté & Hygiène",
-    image: "https://images.unsplash.com/photo-1596462509314-39caa910a0f?w=200&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=200&h=200&fit=crop",
   },
   {
     href: "/categories/supermarket",
@@ -37,7 +37,7 @@ const CATEGORIES = [
   {
     href: "/categories/cars",
     label: "Voitures & Motos",
-    image: "https://images.unsplash.com/photo-1549317661-e6594c4c9dbb?w=200&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=200&h=200&fit=crop",
   },
   {
     href: "/categories/home",

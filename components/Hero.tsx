@@ -62,6 +62,7 @@ export function Hero() {
               <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400">
                 Catégories
               </h2>
+              
             </div>
             <ul className="space-y-0.5">
               {CATEGORIES.map(({ href, label, icon: Icon }) => (

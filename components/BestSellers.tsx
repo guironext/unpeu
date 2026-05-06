@@ -108,9 +108,9 @@ export default function BestSellers() {
                 <Image
                   src={product.image}
                   alt={product.name}
-                  width={160}
-                  height={160}
-                  className="size-full object-contain p-2 transition group-hover:scale-105"
+                  fill
+                  className="object-contain p-2 transition group-hover:scale-105"
+                  sizes="160px"
                 />
                 {/* Discount badge */}
                 <span className="absolute left-2 top-2 rounded bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-lg">

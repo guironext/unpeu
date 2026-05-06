@@ -1,7 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { CheckCircle2, ArrowRight, Users, Store, Shield } from "lucide-react";
+import { CheckCircle2, Users, Store, Shield } from "lucide-react";
+import { OnboardingButton } from "./OnboardingButton";
+import { assignRoleOnLanding } from "./actions";
 
 const VALID_ROLES = ["commercial", "dealers", "admin"] as const;
 type OnboardingRole = (typeof VALID_ROLES)[number];
@@ -67,6 +68,8 @@ export default async function OnboardingRolePage({
   const config = ROLE_CONFIG[normalizedRole];
   const Icon = config.icon;
 
+  await assignRoleOnLanding(normalizedRole);
+
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col items-center justify-center gap-10 px-4 py-16">
       <div className="flex flex-col items-center gap-6 text-center">
@@ -89,13 +92,7 @@ export default async function OnboardingRolePage({
         </ul>
       </div>
 
-      <Button
-        
-        className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
-      >
-        Accéder à mon espace
-        <ArrowRight className="size-4" />
-      </Button>
+      <OnboardingButton role={normalizedRole} />
     </div>
   );
 }

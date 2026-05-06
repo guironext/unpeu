@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Show, UserButton } from "@clerk/nextjs";
-import { ShoppingCart, Search, Menu, X, HelpCircle, ChevronDown, Star, Truck, Store, User } from "lucide-react";
+import { ShoppingCart, Search, Menu, X, HelpCircle, ChevronDown, Star, Truck, Store, User, Phone } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
@@ -34,32 +34,39 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
       {/* Top utility bar - Jumia style */}
-      <div className="border-b border-gray-100 bg-gray-50/95 backdrop-blur-sm">
+      <div className="border-b border-gray-100  backdrop-blur-sm bg-orange-100">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-1.5 sm:px-6 sm:py-2">
           <Link
-            href="/sell"
-            className="flex min-h-9 items-center gap-1.5 text-xs font-medium text-gray-700 transition hover:text-orange-500 sm:text-sm"
+            href="/"
+            className="flex flex-col min-h-9 items-start  text-xs font-medium text-gray-700 transition hover:text-orange-500 sm:text-sm"
           >
+            <p className="flex gap-2">
             <Star className="size-3.5 shrink-0 fill-orange-500 text-orange-500 sm:size-4" />
             <span className="truncate">Vendez sur Unpeu</span>
+            </p>
+            <p className="flex gap-2 ">
+            <Phone className="size-3.5 shrink-0 fill-orange-500 text-orange-500 sm:size-4" />
+            <span className="truncate font-bold">Appelez-nous</span>
+            <span className="truncate font-bold">+225 07 07 15 43 98</span>
+            </p>
           </Link>
           <div className="hidden items-center gap-4 sm:flex sm:gap-6">
-            <Link href="/" className="flex shrink-0 items-center">
+            <Link href="/" className="relative flex h-12 w-28 shrink-0 items-center sm:h-14 sm:w-32">
               <Image
                 src="/logo2.png"
                 alt="Unpeu-Unpeu"
-                width={120}
-                height={40}
-                className="h-12 w-auto object-contain sm:h-14"
+                fill
+                className="object-contain"
+                sizes="(min-width: 640px) 128px, 112px"
               />
             </Link>
             <Link href="/delivery" className="flex shrink-0 items-center gap-1.5 text-xs text-gray-600 hover:text-orange-500 sm:text-sm">
               <Truck className="size-3.5 sm:size-4" />
               Livraison
             </Link>
-            <Link href="/stores" className="flex shrink-0 items-center gap-1.5 text-xs text-gray-600 hover:text-orange-500 sm:text-sm">
+            <Link href="/sign-in" className="flex shrink-0 items-center gap-1.5 text-xs text-gray-600 hover:text-orange-500 sm:text-sm">
               <Store className="size-3.5 sm:size-4" />
-              Boutiques
+              Se connecter
             </Link>
           </div>
         </div>
@@ -80,13 +87,13 @@ export function Header() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="shrink-0">
+            <Link href="/" className="relative block h-14 w-36 shrink-0 sm:h-18 sm:w-44 md:h-22 md:w-52">
               <Image
                 src="/logo2.png"
                 alt="Unpeu-Unpeu"
-                width={240}
-                height={80}
-                className="h-14 w-auto object-contain sm:h-18 md:h-22"
+                fill
+                className="object-contain"
+                sizes="(min-width: 768px) 208px, (min-width: 640px) 176px, 144px"
               />
             </Link>
 

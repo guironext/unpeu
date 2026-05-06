@@ -1,3 +1,13 @@
 Commercial: https://yourdomain.com/join/commercial
 Dealers: https://yourdomain.com/join/dealers
 Admin: https://yourdomain.com/join/admin
+
+Clerk Dashboard: Sessions → Customize session token → add:
+{"metadata": "{{user.public_metadata}}"}
+
+Clerk → Webhooks: Add endpoint https://yourdomain.com/api/webhooks/clerk
+  Events: user.created, user.updated, user.deleted
+  Add CLERK_WEBHOOK_SECRET (signing secret) to .env
+
+Clerk → User & Authentication: Enable "First and last name" (required for custom sign-up form)
+  Custom form collects: Prénom, Nom, Téléphone/Contact (all required)
