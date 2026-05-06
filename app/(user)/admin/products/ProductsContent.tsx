@@ -36,7 +36,8 @@ import type {
 } from "@/app/generated/prisma/browser";
 import Image from "next/image";
 
-type ProductWithRelations = Product & {
+type ProductWithRelations = Omit<Product, "price"> & {
+  price: number;
   categories: Category[];
   rubriques: Rubrique[];
   promotions: Promotion[];
